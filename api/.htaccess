@@ -1,0 +1,46 @@
+RewriteEngine On
+
+# Enable CORS
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+
+# Handle preflight OPTIONS requests
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
+
+# Route API requests to appropriate folders
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Projects API
+RewriteRule ^projects/?$ projects/index.php [L]
+RewriteRule ^projects/(.*)$ projects/index.php [L]
+
+# News API
+RewriteRule ^news/?$ news/index.php [L]
+RewriteRule ^news/(.*)$ news/index.php [L]
+
+# Blogs API
+RewriteRule ^blogs/?$ blogs/index.php [L]
+RewriteRule ^blogs/(.*)$ blogs/index.php [L]
+
+# Careers API
+RewriteRule ^careers/?$ careers/index.php [L]
+RewriteRule ^careers/(.*)$ careers/index.php [L]
+
+# Team API
+RewriteRule ^team/?$ team/index.php [L]
+RewriteRule ^team/(.*)$ team/index.php [L]
+
+# Contact API
+RewriteRule ^contact/?$ contact/index.php [L]
+RewriteRule ^contact/(.*)$ contact/index.php [L]
+
+# Settings API
+RewriteRule ^settings/?$ settings/index.php [L]
+RewriteRule ^settings/(.*)$ settings/index.php [L]
+
+# Error handling
+ErrorDocument 404 /api/404.php
+ErrorDocument 500 /api/500.php
